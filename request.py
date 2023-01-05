@@ -9,6 +9,8 @@ from constants import *
 # log_str_arr is an array of log string
 def writeLog(log_arr):
 
+    if not os.path.exists(LOGS_FILE_PATH):
+        os.makedirs(LOGS_FILE_PATH)
     logs_file = os.path.join(LOGS_FILE_PATH, "clinical-trials-api-logs.dat")
     with open(logs_file, "w") as outfile:
         outfile.write('\n'.join(log_arr))
@@ -78,6 +80,8 @@ def main():
         log_str_arr.append(clinical_tiral_detail_endpoint)
 
         # Writing to data file
+        if not os.path.exists(DATA_FILE_PATH):
+            os.makedirs(DATA_FILE_PATH)
         data_file = os.path.join(
             DATA_FILE_PATH, "clinical-trial-" + clinical_tiral_id + ".json")
         with open(data_file, "w") as outfile:
