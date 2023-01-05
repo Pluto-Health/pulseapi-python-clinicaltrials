@@ -65,6 +65,10 @@ def main():
 
     for clinical_tiral in clinical_trials:
         clinical_tiral_id = clinical_tiral['study_id']
+
+        ##
+        # for each clinical trial call client trial detail API
+        ##
         clinical_tiral_detail_endpoint = BASE_URL + \
             "/clinical-trials/" + clinical_tiral_id
 
@@ -84,6 +88,36 @@ def main():
             os.makedirs(DATA_FILE_PATH)
         data_file = os.path.join(
             DATA_FILE_PATH, "clinical-trial-" + clinical_tiral_id + ".json")
+        with open(data_file, "w") as outfile:
+            outfile.write(json.dumps(response.json()))
+
+        ##
+        # for each clinical trial call client trial eligible API
+        ##
+        clinical_tiral_elgible_endpoint = BASE_URL + \
+            "/clinical-trials/" + clinical_tiral_id + "/eligible"
+
+        response = requests.get(
+            clinical_tiral_elgible_endpoint, headers=headers)
+
+        # Stop in case we meet error calling clinical trial eligible api
+        if response.status_code == 204:
+            log_str_arr.append(STR_NO_CONTENT)
+            writeLog(log_str_arr)
+            return
+
+        if response.status_code != 200:
+            log_str_arr.append(STR_SERVER_ERROR)
+            writeLog(log_str_arr)
+            return
+
+        log_str_arr.append(clinical_tiral_elgible_endpoint)
+
+        # Writing to data file
+        if not os.path.exists(DATA_FILE_PATH):
+            os.makedirs(DATA_FILE_PATH)
+        data_file = os.path.join(
+            DATA_FILE_PATH, "clinical-trial-eligible-" + clinical_tiral_id + ".json")
         with open(data_file, "w") as outfile:
             outfile.write(json.dumps(response.json()))
 
