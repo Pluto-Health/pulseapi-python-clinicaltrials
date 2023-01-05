@@ -104,7 +104,7 @@ def main():
         if response.status_code == 204:
             log_str_arr.append(STR_NO_CONTENT)
             writeLog(log_str_arr)
-            return
+            continue
 
         if response.status_code != 200:
             log_str_arr.append(STR_SERVER_ERROR)
