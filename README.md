@@ -10,12 +10,12 @@ It calls the following Pluto API.
 
 * Call the API which retrieves detailed clinical trial information
 ```
-/clinical-trials//{study-id}
+/clinical-trials/{study-id}
 ```
 
 * Call the clinical trial eligible API
 ```
-/clinical-trials//{study-id}/eligible
+/clinical-trials/{study-id}/eligible
 ```
 
 # Configure your environment
