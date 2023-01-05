@@ -39,7 +39,9 @@ def main():
     access_token = response.json()['access_token']
 
     # Feel free to change the start and length here
-    query = {'length': 2, 'start': 1}
+    START_INDEX = 1
+    CLINICAL_TRIAL_LENGTH = 10
+    query = {'length': CLINICAL_TRIAL_LENGTH, 'start': START_INDEX}
     headers = {"Authorization": "Bearer " + access_token}
     clinicaltrials_endpoint = BASE_URL + "/clinical-trials"
     response = requests.get(
